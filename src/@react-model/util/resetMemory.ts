@@ -1,4 +1,4 @@
-import { ResetMemory } from 'util/@react-model/type'
+import { ResetMemory } from '../type'
 
 export const resetMemory: ResetMemory = () => {
   const storages = [localStorage, sessionStorage]

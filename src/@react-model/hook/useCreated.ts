@@ -1,4 +1,4 @@
-import { UseCreated } from 'util/@react-model/type'
+import { UseCreated } from '../type'
 import { useEffect } from 'react'
 
 export const useCreated: UseCreated = (createFunc) => {

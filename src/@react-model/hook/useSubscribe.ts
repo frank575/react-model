@@ -1,8 +1,10 @@
-import { UseSubscribe } from 'util/@react-model/type'
+import { UseSubscribe } from '../type'
 import { useEffect } from 'react'
-import { $$subscriber } from '@react-model'
+import { $$subscriber } from '../'
+import {useForceUpdate} from "src/@react-model/hook/useForceUpdate";
 
 export const useSubscribe: UseSubscribe = (name, emitFunc) => {
+  const render = useForceUpdate()
   const pop = (): void => {
     const subscriber: Function[] = $$subscriber[name]
     const removeSubscriberIndex: number = subscriber.findIndex(
@@ -14,10 +16,13 @@ export const useSubscribe: UseSubscribe = (name, emitFunc) => {
   }
 
   useEffect(() => {
+    let fn: Function
+    if (emitFunc === undefined) fn = render;
+    else fn = <T>(action: T) => emitFunc({action, render, pop})
     if ($$subscriber[name] === undefined) {
-      $$subscriber[name] = [emitFunc]
+      $$subscriber[name] = [fn]
     } else {
-      $$subscriber[name].push(emitFunc)
+      $$subscriber[name].push(fn)
     }
     return pop
   }, [])

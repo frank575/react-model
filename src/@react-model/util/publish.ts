@@ -1,5 +1,5 @@
-import { Publish } from 'util/@react-model/type'
-import { $$subscriber } from '@react-model'
+import { Publish } from '../type'
+import { $$subscriber } from '../'
 
 export const publish: Publish = <T>(name: string, action: T) => {
   $$subscriber[name] &&

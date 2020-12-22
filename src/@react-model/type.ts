@@ -1,16 +1,17 @@
-import { FunctionComponent, ReactElement } from 'react'
-
 export interface Pop {
-  pop: () => void
+  pop: pop
+}
+export interface pop {
+  (): void
 }
 export interface UseSubscribe {
-  (name: string, emitFunction: Function): Pop
+  (name: string, emitFunction?: (data: { action: any, render: ForceUpdate, pop: pop }) => void): Pop
 }
 export interface UseCreated {
   (createFunc: Function): void
 }
-export interface UseDestory {
-  (destoryFunc: Function): void
+export interface UseDestroy {
+  (destroyFunc: Function): void
 }
 export interface ForceUpdate {
   (): void

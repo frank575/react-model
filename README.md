@@ -110,7 +110,7 @@ ps：
 
 ```typescript
 interface UseDestory {
-  (destoryFunc: Function): void
+  (destroyFunc: Function): void
 }
 ```
 

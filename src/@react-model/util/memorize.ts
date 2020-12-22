@@ -1,4 +1,4 @@
-import { Memorize } from 'util/@react-model/type'
+import { Memorize } from '../type'
 
 export const memorize: Memorize = <T>(
   key: string,

@@ -1,4 +1,4 @@
-import { UseForceUpdate } from 'util/@react-model/type'
+import { UseForceUpdate } from '../type'
 import { useState } from 'react'
 
 export const useForceUpdate: UseForceUpdate = () => {

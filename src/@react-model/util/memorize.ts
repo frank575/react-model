@@ -1,22 +1,21 @@
 import { Memorize } from '../type'
-
 export const memorize: Memorize = <T>(
   key: string,
   initial?: T,
-  storageName = 'localStorage'
+  storageKey?: string,
+  storageName?: 'localStorage' | 'sessionStorage'
 ) => {
+  const _storageName: 'localStorage' | 'sessionStorage' = !storageName ? 'localStorage' : storageName
+  const _storageKey = !storageKey ? `rm_${key}` : storageKey
   const win = window as any
-  const storage = win[storageName]
-  const storageKey = `rm_${key}`
-  let storageVal: undefined | T = undefined
-  const setStorageVal = (data: T): string =>
-    (win[storageName][`rm_${key}`] = JSON.stringify(data))
-  if (initial !== undefined && !storage[storageKey])
-    storage[storageKey] = JSON.stringify(initial)
-  try {
-    storageVal = JSON.parse(storage[storageKey])
-  } catch (_) {
-    storageVal = storage[storageKey]
+  const storage = win[_storageName]
+  const storageElement = storage[_storageKey];
+  const setStorageVal = (data: T): T => {
+    if(data !== undefined) storage.setItem(_storageKey, JSON.stringify(data))
+    return data
   }
-  return [storageVal as T, setStorageVal]
+  if (!initial && !storageElement) setStorageVal(initial!)
+  return [storageElement ? JSON.parse(storageElement) : initial, setStorageVal]
 }
+
+import {$$rm_store} from "@react-model";

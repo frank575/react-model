@@ -1,9 +1,9 @@
 import { Publish } from '../type'
-import { $$subscriber } from '../'
+import { $$rm_store } from '../'
 
 export const publish: Publish = <T>(name: string, action: T) => {
-  $$subscriber[name] &&
-    $$subscriber[name].forEach((func: Function) => {
+  $$rm_store.subscribers[name] &&
+    $$rm_store.subscribers[name].forEach((func: Function) => {
       func(action)
     })
 }
